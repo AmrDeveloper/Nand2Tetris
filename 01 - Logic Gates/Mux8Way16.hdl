@@ -18,5 +18,179 @@ CHIP Mux8Way16 {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    //Index = 0
+    Mux(a = a[0], b = e[0], sel = sel[2], out = result00);
+    Mux(a = c[0], b = g[0], sel = sel[2], out = result01);
+    Mux(a = result00, b = result01, sel = sel[1], out = result02);
+
+    Mux(a = b[0], b = f[0], sel = sel[2], out = result03);
+    Mux(a = d[0], b = h[0], sel = sel[2], out = result04);
+    Mux(a = result03, b = result04, sel = sel[1], out = result05);
+
+    Mux(a = result02, b = result05, sel = sel[0], out = out[0]);
+
+    //Index = 1
+    Mux(a = a[1], b = e[1], sel = sel[2], out = result10);
+    Mux(a = c[1], b = g[1], sel = sel[2], out = result11);
+    Mux(a = result10, b = result11, sel = sel[1], out = result12);
+
+    Mux(a = b[1], b = f[1], sel = sel[2], out = result13);
+    Mux(a = d[1], b = h[1], sel = sel[2], out = result14);
+    Mux(a = result13, b = result14, sel = sel[1], out = result15);
+
+    Mux(a = result12, b = result15, sel = sel[0], out = out[1]);
+
+    //Index = 2
+    Mux(a = a[2], b = e[2], sel = sel[2], out = result20);
+    Mux(a = c[2], b = g[2], sel = sel[2], out = result21);
+    Mux(a = result20, b = result21, sel = sel[1], out = result22);
+
+    Mux(a = b[2], b = f[2], sel = sel[2], out = result23);
+    Mux(a = d[2], b = h[2], sel = sel[2], out = result24);
+    Mux(a = result23, b = result24, sel = sel[1], out = result25);
+
+    Mux(a = result22, b = result25, sel = sel[0], out = out[2]);
+
+    //Index = 3
+    Mux(a = a[3], b = e[3], sel = sel[2], out = result30);
+    Mux(a = c[3], b = g[3], sel = sel[2], out = result31);
+    Mux(a = result30, b = result31, sel = sel[1], out = result32);
+
+    Mux(a = b[3], b = f[3], sel = sel[2], out = result33);
+    Mux(a = d[3], b = h[3], sel = sel[2], out = result34);
+    Mux(a = result33, b = result34, sel = sel[1], out = result35);
+
+    Mux(a = result32, b = result35, sel = sel[0], out = out[3]);
+
+    //Index = 4
+    Mux(a = a[4], b = e[4], sel = sel[2], out = result40);
+    Mux(a = c[4], b = g[4], sel = sel[2], out = result41);
+    Mux(a = result40, b = result41, sel = sel[1], out = result42);
+
+    Mux(a = b[4], b = f[4], sel = sel[2], out = result43);
+    Mux(a = d[4], b = h[4], sel = sel[2], out = result44);
+    Mux(a = result43, b = result44, sel = sel[1], out = result45);
+
+    Mux(a = result42, b = result45, sel = sel[0], out = out[4]);
+
+    //Index = 5
+    Mux(a = a[5], b = e[5], sel = sel[2], out = result50);
+    Mux(a = c[5], b = g[5], sel = sel[2], out = result51);
+    Mux(a = result50, b = result51, sel = sel[1], out = result52);
+
+    Mux(a = b[5], b = f[5], sel = sel[2], out = result53);
+    Mux(a = d[5], b = h[5], sel = sel[2], out = result54);
+    Mux(a = result53, b = result54, sel = sel[1], out = result55);
+
+    Mux(a = result52, b = result55, sel = sel[0], out = out[5]);
+
+    //Index = 6
+    Mux(a = a[6], b = e[6], sel = sel[2], out = result60);
+    Mux(a = c[6], b = g[6], sel = sel[2], out = result61);
+    Mux(a = result60, b = result61, sel = sel[1], out = result62);
+
+    Mux(a = b[6], b = f[6], sel = sel[2], out = result63);
+    Mux(a = d[6], b = h[6], sel = sel[2], out = result64);
+    Mux(a = result63, b = result64, sel = sel[1], out = result65);
+
+    Mux(a = result62, b = result65, sel = sel[0], out = out[6]);
+
+    //Index = 7
+    Mux(a = a[7], b = e[7], sel = sel[2], out = result70);
+    Mux(a = c[7], b = g[7], sel = sel[2], out = result71);
+    Mux(a = result70, b = result71, sel = sel[1], out = result72);
+
+    Mux(a = b[7], b = f[7], sel = sel[2], out = result73);
+    Mux(a = d[7], b = h[7], sel = sel[2], out = result74);
+    Mux(a = result73, b = result74, sel = sel[1], out = result75);
+
+    Mux(a = result72, b = result75, sel = sel[0], out = out[7]);
+ 
+    //Index = 8
+    Mux(a = a[8], b = e[8], sel = sel[2], out = result80);
+    Mux(a = c[8], b = g[8], sel = sel[2], out = result81);
+    Mux(a = result80, b = result81, sel = sel[1], out = result82);
+
+    Mux(a = b[8], b = f[8], sel = sel[2], out = result83);
+    Mux(a = d[8], b = h[8], sel = sel[2], out = result84);
+    Mux(a = result83, b = result84, sel = sel[1], out = result85);
+
+    Mux(a = result82, b = result85, sel = sel[0], out = out[8]);
+
+    //Index = 9
+    Mux(a = a[9], b = e[9], sel = sel[2], out = result90);
+    Mux(a = c[9], b = g[9], sel = sel[2], out = result91);
+    Mux(a = result90, b = result91, sel = sel[1], out = result92);
+
+    Mux(a = b[9], b = f[9], sel = sel[2], out = result93);
+    Mux(a = d[9], b = h[9], sel = sel[2], out = result94);
+    Mux(a = result93, b = result94, sel = sel[1], out = result95);
+
+    Mux(a = result92, b = result95, sel = sel[0], out = out[9]);
+
+    //Index = 10
+    Mux(a = a[10], b = e[10], sel = sel[2], out = result100);
+    Mux(a = c[10], b = g[10], sel = sel[2], out = result101);
+    Mux(a = result100, b = result101, sel = sel[1], out = result102);
+
+    Mux(a = b[10], b = f[10], sel = sel[2], out = result103);
+    Mux(a = d[10], b = h[10], sel = sel[2], out = result104);
+    Mux(a = result103, b = result104, sel = sel[1], out = result105);
+
+    Mux(a = result102, b = result105, sel = sel[0], out = out[10]);
+
+    //Index = 11
+    Mux(a = a[11], b = e[11], sel = sel[2], out = result110);
+    Mux(a = c[11], b = g[11], sel = sel[2], out = result111);
+    Mux(a = result110, b = result111, sel = sel[1], out = result112);
+
+    Mux(a = b[11], b = f[11], sel = sel[2], out = result113);
+    Mux(a = d[11], b = h[11], sel = sel[2], out = result114);
+    Mux(a = result113, b = result114, sel = sel[1], out = result115);
+
+    Mux(a = result112, b = result115, sel = sel[0], out = out[11]);
+
+    //Index = 12
+    Mux(a = a[12], b = e[12], sel = sel[2], out = result120);
+    Mux(a = c[12], b = g[12], sel = sel[2], out = result121);
+    Mux(a = result120, b = result121, sel = sel[1], out = result122);
+
+    Mux(a = b[12], b = f[12], sel = sel[2], out = result123);
+    Mux(a = d[12], b = h[12], sel = sel[2], out = result124);
+    Mux(a = result123, b = result124, sel = sel[1], out = result125);
+
+    Mux(a = result122, b = result125, sel = sel[0], out = out[12]);
+
+    //Index = 13
+    Mux(a = a[13], b = e[13], sel = sel[2], out = result130);
+    Mux(a = c[13], b = g[13], sel = sel[2], out = result131);
+    Mux(a = result130, b = result131, sel = sel[1], out = result132);
+
+    Mux(a = b[13], b = f[13], sel = sel[2], out = result133);
+    Mux(a = d[13], b = h[13], sel = sel[2], out = result134);
+    Mux(a = result133, b = result134, sel = sel[1], out = result135);
+
+    Mux(a = result132, b = result135, sel = sel[0], out = out[13]);
+
+    //Index = 14
+    Mux(a = a[14], b = e[14], sel = sel[2], out = result140);
+    Mux(a = c[14], b = g[14], sel = sel[2], out = result141);
+    Mux(a = result140, b = result141, sel = sel[1], out = result142);
+
+    Mux(a = b[14], b = f[14], sel = sel[2], out = result143);
+    Mux(a = d[14], b = h[14], sel = sel[2], out = result144);
+    Mux(a = result143, b = result144, sel = sel[1], out = result145);
+
+    Mux(a = result142, b = result145, sel = sel[0], out = out[14]);
+
+    //Index = 15
+    Mux(a = a[15], b = e[15], sel = sel[2], out = result150);
+    Mux(a = c[15], b = g[15], sel = sel[2], out = result151);
+    Mux(a = result150, b = result151, sel = sel[1], out = result152);
+
+    Mux(a = b[15], b = f[15], sel = sel[2], out = result153);
+    Mux(a = d[15], b = h[15], sel = sel[2], out = result154);
+    Mux(a = result153, b = result154, sel = sel[1], out = result155);
+
+    Mux(a = result152, b = result155, sel = sel[0], out = out[15]);
 }
