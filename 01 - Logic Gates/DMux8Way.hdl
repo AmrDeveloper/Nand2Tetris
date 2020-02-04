@@ -16,5 +16,49 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    // Put your code here:
+    //a
+    Not(in = sel[2], out = notSelTwo);
+    Not(in = sel[1], out = notSelOne);
+    Not(in = sel[0], out = notSelZero);
+
+    //Not(sel[2]) AND Not(sel[1])
+    And(a = notSelTwo, b = notSelOne, out = andNotTwoOne);
+    //Not(sel[1]) AND Not(sel[0])
+    And(a = notSelOne, b = notSelZero, out = andNotOneZero);
+    //Not(sel[2]) AND Not(sel[0])
+    And(a = notSelTwo, b = notSelZero, out = andNotTwoZero);
+
+    And(a = andNotOneZero, b = andNotTwoOne, out = andNotZeroOneTwo);
+    And(a = andNotZeroOneTwo, b = in , out = a);
+
+    //b
+    And(a = andNotTwoOne, b = in , out = andNotTwoOneIn);
+    And(a = andNotTwoOneIn, b = sel[0], out = b);
+
+    //C
+    And(a = andNotTwoZero, b = sel[1], out = andNotTwoZeroSellOne);
+    And(a = andNotTwoZeroSellOne, b = in, out = c);
+ 
+    //d
+    And(a = sel[1], b = sel[0], out = andSelOneZero);
+    And(a = notSelTwo, b = in, out = andNotSelTwoIn);
+    And(a = andSelOneZero, b = andNotSelTwoIn, out = d);
+
+    //e
+    And(a = sel[2], b = in, out = andSelTwoIn);
+    And(a = andSelTwoIn, b = andNotOneZero, out = e);
+
+    //f
+    And(a = sel[2], b = sel[0], out = andSelTwoZero);
+    And(a = in, b = notSelOne, out = andNotOneIn);
+    And(a = andNotOneIn, b = andSelTwoZero, out = f);
+
+    //g
+    And(a = sel[2], b = sel[1], out = andSelTwoOne);
+    And(a = notSelZero, b = in, out = andNotZeroIn);
+    And(a = andSelTwoOne, b = andNotZeroIn, out = g);
+
+    //h
+    And(a = sel[2],b = andSelOneZero, out = andSelTwoOneZero);
+    And(a = andSelTwoOneZero, b = in, out = h);
 }
