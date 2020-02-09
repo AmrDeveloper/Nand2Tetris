@@ -30,7 +30,13 @@ public class InstructionAssembler implements AssemblerVisitor {
             int value = assemblyCode.getBranches().get(symbol);
             return AssemblerUtils.integerTo16BitBinary(value);
         }else{
-            return "Random : " + symbol;
+            if(assemblyCode.getVariables().containsKey(symbol)){
+                int value = assemblyCode.getBranches().get(symbol);
+                return AssemblerUtils.integerTo16BitBinary(value);
+            }else{
+                int value = assemblyCode.addVariables(symbol);
+                return AssemblerUtils.integerTo16BitBinary(value);
+            }
         }
     }
 
