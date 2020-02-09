@@ -77,8 +77,11 @@ public class AssemblyParser {
             Scanner sc = new Scanner(fis);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
-                if (line.contains("//") || line.isEmpty()) {
+                if (line.startsWith("//") || line.isEmpty()) {
                     continue;
+                }else if(line.contains("//")){
+                    String[] args = line.split("//");
+                    line = args[0].trim();
                 }
                 lines.add(line);
             }
