@@ -1,3 +1,9 @@
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 public class InstructionAssembler implements AssemblerVisitor {
@@ -17,6 +23,12 @@ public class InstructionAssembler implements AssemblerVisitor {
             machineLanguageCode.append(output).append("\n");
         }
         return machineLanguageCode.toString();
+    }
+
+    public void translate(String outFile) throws IOException {
+        String output = translate().trim();
+        Path file = Paths.get(outFile);
+        Files.write(file, Collections.singleton(output), StandardCharsets.UTF_8);
     }
 
     @Override
