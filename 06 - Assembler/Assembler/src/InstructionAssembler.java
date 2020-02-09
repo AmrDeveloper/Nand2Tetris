@@ -31,7 +31,7 @@ public class InstructionAssembler implements AssemblerVisitor {
             return AssemblerUtils.integerTo16BitBinary(value);
         }else{
             if(assemblyCode.getVariables().containsKey(symbol)){
-                int value = assemblyCode.getBranches().get(symbol);
+                int value = assemblyCode.getVariables().get(symbol);
                 return AssemblerUtils.integerTo16BitBinary(value);
             }else{
                 int value = assemblyCode.addVariables(symbol);
