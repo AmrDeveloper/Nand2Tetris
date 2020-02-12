@@ -54,6 +54,19 @@ public class VirtualMachineParser {
                 case "not":
                     commands.add(new Commands.NotCommand());
                     break;
+                //Branch Commands
+                case "goto":
+                    String labelGoto = args[1];
+                    commands.add(new Commands.GotoCommand(labelGoto));
+                    break;
+                case "label":
+                    String labelLabel = args[1];
+                    commands.add(new Commands.LabelCommand(labelLabel));
+                    break;
+                case "if-goto":
+                    String labelIfGoto = args[1];
+                    commands.add(new Commands.IfGotoCommand(labelIfGoto));
+                    break;
             }
         }
         return commands;

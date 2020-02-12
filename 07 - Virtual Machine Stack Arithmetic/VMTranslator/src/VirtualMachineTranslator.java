@@ -469,4 +469,24 @@ public class VirtualMachineTranslator implements CommandVisitors{
         }
         return instructions;
     }
+
+    @Override
+    public List<String> visit(Commands.LabelCommand command) {
+        List<String> instructions = new ArrayList<>();
+        instructions.add("(" + command.getLabel() + ")");
+        return instructions;
+    }
+
+    @Override
+    public List<String> visit(Commands.GotoCommand command) {
+        List<String> instructions = new ArrayList<>();
+        instructions.add("@" + command.getLabel());
+        instructions.add("0;JMP");
+        return instructions;
+    }
+
+    @Override
+    public List<String> visit(Commands.IfGotoCommand command) {
+        return null;
+    }
 }

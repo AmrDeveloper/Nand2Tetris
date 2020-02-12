@@ -116,4 +116,52 @@ public class Commands {
             return visitor.visit(this);
         }
     }
+
+    public static abstract class BranchCommand extends Command{
+
+        private String label;
+
+        public BranchCommand(String label){
+            this.label = label;
+        }
+
+        public String getLabel(){
+            return label;
+        }
+    }
+
+    public static class GotoCommand extends BranchCommand{
+
+        public GotoCommand(String label) {
+            super(label);
+        }
+
+        @Override
+        public List<String> accept(CommandVisitors visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class LabelCommand extends BranchCommand{
+
+        public LabelCommand(String label) {
+            super(label);
+        }
+
+        @Override
+        public List<String> accept(CommandVisitors visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class IfGotoCommand extends BranchCommand{
+        public IfGotoCommand(String label) {
+            super(label);
+        }
+
+        @Override
+        public List<String> accept(CommandVisitors visitor) {
+            return visitor.visit(this);
+        }
+    }
 }
