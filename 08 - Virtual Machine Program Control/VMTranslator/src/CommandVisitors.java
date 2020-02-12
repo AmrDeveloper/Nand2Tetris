@@ -15,4 +15,9 @@ public interface CommandVisitors{
     //Memory Access Commands
     List<String> visit(Commands.PushCommand command);
     List<String> visit(Commands.PopCommand command);
+
+    //Branch Commands
+    List<String> visit(Commands.LabelCommand command);
+    List<String> visit(Commands.GotoCommand command);
+    List<String> visit(Commands.IfGotoCommand command);
 }
