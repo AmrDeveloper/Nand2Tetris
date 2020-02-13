@@ -518,7 +518,72 @@ public class VirtualMachineTranslator implements CommandVisitors{
     public List<String> visit(Commands.CallCommand command) {
         List<String> instructions = new ArrayList<>();
         instructions.add("//Call command for " + command.getName());
-        //goto + function name
+        //Push returnAddr
+        instructions.add("@" + "return_" + command.getName());
+        instructions.add("D=A");
+        instructions.add("@SP");
+        instructions.add("A=M");
+        instructions.add("M=D");
+        instructions.add("@SP");
+        instructions.add("M=M+1");
+
+        //Push LCL
+        instructions.add("@LCL");
+        instructions.add("D=M");
+        instructions.add("@SP");
+        instructions.add("A=M");
+        instructions.add("M=D");
+        instructions.add("@SP");
+        instructions.add("M=M+1");
+        //Push ARG
+        instructions.add("@ARG");
+        instructions.add("D=M");
+        instructions.add("@SP");
+        instructions.add("A=M");
+        instructions.add("M=D");
+        instructions.add("@SP");
+        instructions.add("M=M+1");
+        //Push This
+        instructions.add("@THIS");
+        instructions.add("D=M");
+        instructions.add("@SP");
+        instructions.add("A=M");
+        instructions.add("M=D");
+        instructions.add("@SP");
+        instructions.add("M=M+1");
+        //Push That
+        instructions.add("@THAT");
+        instructions.add("D=M");
+        instructions.add("@SP");
+        instructions.add("A=M");
+        instructions.add("M=D");
+        instructions.add("@SP");
+        instructions.add("M=M+1");
+
+        //ARG = SP - 5 - nArgs
+        instructions.add("@5");
+        instructions.add("D=A");
+        instructions.add("@" + command.getArgsNum());
+        instructions.add("D=D+A");
+        instructions.add("@SP");
+        instructions.add("D=M-D");
+        instructions.add("@ARG");
+        instructions.add("M=D");
+        instructions.add("@SP");
+        instructions.add("M=D");
+
+        //LCL = SP
+        instructions.add("@SP");
+        instructions.add("D=M");
+        instructions.add("@LCL");
+        instructions.add("M=D");
+
+        //GOTO function Name
+        instructions.add("(" + command.getName() + ")");
+        instructions.add("0;JMP");
+
+        //(return Addr)
+        instructions.add("(" + "return_" + command.getName() + ")");
         return instructions;
     }
 
