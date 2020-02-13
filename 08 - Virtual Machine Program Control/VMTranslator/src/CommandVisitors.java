@@ -20,4 +20,9 @@ public interface CommandVisitors{
     List<String> visit(Commands.LabelCommand command);
     List<String> visit(Commands.GotoCommand command);
     List<String> visit(Commands.IfGotoCommand command);
+
+    //Function Commands
+    List<String> visit(Commands.FunctionCommand command);
+    List<String> visit(Commands.CallCommand command);
+    List<String> visit(Commands.ReturnCommand command);
 }

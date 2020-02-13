@@ -67,6 +67,20 @@ public class VirtualMachineParser {
                     String labelIfGoto = args[1];
                     commands.add(new Commands.IfGotoCommand(labelIfGoto));
                     break;
+                //Function Commands
+                case "function":
+                    String functionName = args[1];
+                    int functionVarsNum = Integer.parseInt(args[2]);
+                    commands.add(new Commands.FunctionCommand(functionName, functionVarsNum));
+                    break;
+                case "call":
+                    String callName = args[1];
+                    int callArgsNum = Integer.parseInt(args[2]);
+                    commands.add(new Commands.CallCommand(callName, callArgsNum));
+                    break;
+                case "return":
+                    commands.add(new Commands.ReturnCommand());
+                    break;
             }
         }
         return commands;

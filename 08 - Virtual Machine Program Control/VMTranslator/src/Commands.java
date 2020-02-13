@@ -2,6 +2,9 @@ import java.util.List;
 
 public class Commands {
 
+    /**
+     * Arithmetic Commands
+     */
     public static class AddCommand extends Command{
 
         @Override
@@ -74,6 +77,9 @@ public class Commands {
         }
     }
 
+    /**
+     * Memory Access Commands
+     */
     public static abstract class MemoryCommand extends Command{
 
         private String index;
@@ -117,6 +123,9 @@ public class Commands {
         }
     }
 
+    /**
+     * Branch Commands
+     */
     public static abstract class BranchCommand extends Command{
 
         private String label;
@@ -158,6 +167,65 @@ public class Commands {
         public IfGotoCommand(String label) {
             super(label);
         }
+
+        @Override
+        public List<String> accept(CommandVisitors visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    /**
+     * Function Commands
+     */
+    public static class FunctionCommand extends Command{
+
+        private String name;
+        private int varsNum;
+
+        public FunctionCommand(String name, int varsNum) {
+            this.name = name;
+            this.varsNum = varsNum;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getVarsNum() {
+            return varsNum;
+        }
+
+        @Override
+        public List<String> accept(CommandVisitors visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class CallCommand extends Command{
+
+        private String name;
+        private int argsNum;
+
+        public CallCommand(String name, int argsNum) {
+            this.name = name;
+            this.argsNum = argsNum;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getArgsNum() {
+            return argsNum;
+        }
+
+        @Override
+        public List<String> accept(CommandVisitors visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class ReturnCommand extends Command{
 
         @Override
         public List<String> accept(CommandVisitors visitor) {
