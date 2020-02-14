@@ -591,7 +591,57 @@ public class VirtualMachineTranslator implements CommandVisitors{
     public List<String> visit(Commands.ReturnCommand command) {
         List<String> instructions = new ArrayList<>();
         instructions.add("//Return");
-
+        instructions.add("//Return Command");
+        instructions.add("@LCL");
+        instructions.add("D=M");
+        instructions.add("@endFrame");
+        instructions.add("M=D");
+        instructions.add("@endFrame");
+        instructions.add("D=M");
+        instructions.add("@5");
+        instructions.add("A=D-A");
+        instructions.add("D=M");
+        instructions.add("@ret_addr");
+        instructions.add("M=D");
+        instructions.add("@SP");
+        instructions.add("A=M-1");
+        instructions.add("D=M");
+        instructions.add("@ARG");
+        instructions.add("A=M");
+        instructions.add("M=D");
+        instructions.add("@ARG");
+        instructions.add("D=M+1");
+        instructions.add("@SP");
+        instructions.add("M=D");
+        instructions.add("@endFrame");
+        instructions.add("A=M-1");
+        instructions.add("D=M");
+        instructions.add("@THAT");
+        instructions.add("M=D");
+        instructions.add("@endFrame");
+        instructions.add("D=M");
+        instructions.add("@2");
+        instructions.add("A=D-A");
+        instructions.add("D=M");
+        instructions.add("@THIS");
+        instructions.add("M=D");
+        instructions.add("@endFrame");
+        instructions.add("D=M");
+        instructions.add("@3");
+        instructions.add("A=D-A");
+        instructions.add("D=M");
+        instructions.add("@ARG");
+        instructions.add("M=D");
+        instructions.add("@endFrame");
+        instructions.add("D=M");
+        instructions.add("@4");
+        instructions.add("A=D-A");
+        instructions.add("D=M");
+        instructions.add("@LCL");
+        instructions.add("M=D");
+        instructions.add("@ret_addr");
+        instructions.add("A=M");
+        instructions.add("0;JMP");
         return instructions;
     }
 }
