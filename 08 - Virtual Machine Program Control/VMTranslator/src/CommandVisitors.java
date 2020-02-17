@@ -25,4 +25,5 @@ public interface CommandVisitors{
     List<String> visit(Commands.FunctionCommand command);
     List<String> visit(Commands.CallCommand command);
     List<String> visit(Commands.ReturnCommand command);
+    List<String> visit(Commands.InitCommand command);
 }

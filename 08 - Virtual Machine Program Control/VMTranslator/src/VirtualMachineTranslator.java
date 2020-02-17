@@ -5,12 +5,10 @@ import java.util.List;
 
 public class VirtualMachineTranslator implements CommandVisitors{
 
-    private String fileName;
     private List<Command> commandList;
     private int branchIndex = 0;
 
-    public VirtualMachineTranslator(String fileName, List<Command> commandList){
-        this.fileName = fileName;
+    public VirtualMachineTranslator(List<Command> commandList){
         this.commandList = commandList;
         this.branchIndex = 0;
     }
@@ -318,7 +316,7 @@ public class VirtualMachineTranslator implements CommandVisitors{
             case "static" : {
                 //Invalid you mush add it to the stack
                 instructions.add("//Push Static");
-                instructions.add("@" + fileName + "." + command.getIndex());
+                instructions.add("@" + command.getFileName() + "_" + command.getIndex());
                 instructions.add("D=M");
                 instructions.add("@SP");
                 instructions.add("A=M");
@@ -433,7 +431,7 @@ public class VirtualMachineTranslator implements CommandVisitors{
                 instructions.add("@SP");
                 instructions.add("A=M");
                 instructions.add("D=M");
-                instructions.add("@" + fileName + "." + command.getIndex());
+                instructions.add("@" + command.getFileName() + "_" + command.getIndex());
                 instructions.add("M=D");
                 break;
             }
@@ -518,8 +516,8 @@ public class VirtualMachineTranslator implements CommandVisitors{
     public List<String> visit(Commands.CallCommand command) {
         List<String> instructions = new ArrayList<>();
         instructions.add("//Call command for " + command.getName());
-        //Push returnAddr
-        instructions.add("@" + "return_" + command.getName());
+        //Push return_address
+        instructions.add("@return_address_" + command.getName() + "_" + command.getArgsNum() + "_" + branchIndex);
         instructions.add("D=A");
         instructions.add("@SP");
         instructions.add("A=M");
@@ -569,8 +567,8 @@ public class VirtualMachineTranslator implements CommandVisitors{
         instructions.add("D=M-D");
         instructions.add("@ARG");
         instructions.add("M=D");
-        instructions.add("@SP");
-        instructions.add("M=D");
+        //instructions.add("@SP");
+        //instructions.add("M=D");
 
         //LCL = SP
         instructions.add("@SP");
@@ -579,11 +577,12 @@ public class VirtualMachineTranslator implements CommandVisitors{
         instructions.add("M=D");
 
         //GOTO function Name
-        instructions.add("(" + command.getName() + ")");
+        instructions.add("@" + command.getName());
         instructions.add("0;JMP");
 
-        //(return Addr)
-        instructions.add("(" + "return_" + command.getName() + ")");
+        //(return_address)
+        instructions.add("(return_address_" + command.getName() + "_" + command.getArgsNum() + "_" + branchIndex + ")");
+        branchIndex = branchIndex + 1;
         return instructions;
     }
 
@@ -642,6 +641,18 @@ public class VirtualMachineTranslator implements CommandVisitors{
         instructions.add("@ret_addr");
         instructions.add("A=M");
         instructions.add("0;JMP");
+        return instructions;
+    }
+
+    @Override
+    public List<String> visit(Commands.InitCommand command) {
+        List<String> instructions = new ArrayList<>();
+        instructions.add("//Bootstrap code");
+        instructions.add("@256");
+        instructions.add("D=A");
+        instructions.add("@SP");
+        instructions.add("M=D");
+        instructions.addAll(visit(new Commands.CallCommand("Sys.init", 0)));
         return instructions;
     }
 }

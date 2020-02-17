@@ -84,10 +84,12 @@ public class Commands {
 
         private String index;
         private String segment;
+        private String fileName;
 
-        public MemoryCommand(String index, String segment){
+        public MemoryCommand(String index, String segment, String fileName){
             this.index = index;
             this.segment = segment;
+            this.fileName = fileName;
         }
 
         public String getIndex() {
@@ -97,12 +99,16 @@ public class Commands {
         public String getSegment() {
             return segment;
         }
+
+        public String getFileName(){
+            return fileName;
+        }
     }
 
     public static class PushCommand extends MemoryCommand{
 
-        public PushCommand(String index, String segment) {
-            super(index, segment);
+        public PushCommand(String index, String segment, String fileName) {
+            super(index, segment,fileName);
         }
 
         @Override
@@ -113,8 +119,8 @@ public class Commands {
 
     public static class PopCommand extends MemoryCommand{
 
-        public PopCommand(String index, String segment) {
-            super(index, segment);
+        public PopCommand(String index, String segment, String fileName) {
+            super(index, segment, fileName);
         }
 
         @Override
@@ -226,6 +232,14 @@ public class Commands {
     }
 
     public static class ReturnCommand extends Command{
+
+        @Override
+        public List<String> accept(CommandVisitors visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class InitCommand extends Command{
 
         @Override
         public List<String> accept(CommandVisitors visitor) {

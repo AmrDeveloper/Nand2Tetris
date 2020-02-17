@@ -1,17 +1,46 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class VirtualMachineParser {
 
-    public List<Command> parseCode(String inputFile){
-        List<String> vmLines = readVmFile(inputFile);
-        return parseCommandList(vmLines);
+    public List<Command> parse(File inputFile){
+        if(inputFile.isDirectory()){
+            return parseDirectory(inputFile);
+        }else{
+            return parseCode(inputFile.getPath(), inputFile.getName());
+        }
     }
 
-    public List<Command> parseCommandList(List<String> lines){
+    public List<Command> parseCode(String inputFile, String fileName){
+        List<String> vmLines = readVmFile(inputFile);
+        return parseCommandList(vmLines, fileName);
+    }
+
+    public List<Command> parseDirectory(File directory){
+        List<Command> vmLines = new ArrayList<>();
+        File[] filesList = Objects.requireNonNull(directory.listFiles());
+        for(File file : filesList){
+            if(file.getName().endsWith(".vm")){
+                if(file.getName().endsWith("Sys.vm")){
+                    vmLines.add(0, new Commands.InitCommand());
+                    List<Command> sublist = parseCode(file.getPath(), file.getName());
+                    System.out.println(file.getPath());
+                    vmLines.addAll(1, sublist);
+                }else{
+                    List<Command> sublist = parseCode(file.getPath(), file.getName());
+                    vmLines.addAll(sublist);
+                }
+            }
+        }
+        return vmLines;
+    }
+
+    public List<Command> parseCommandList(List<String> lines, String fileName){
         List<Command> commands = new ArrayList<>();
         for(String line : lines){
             String[] args = line.split(" ");
@@ -20,12 +49,12 @@ public class VirtualMachineParser {
                 case "push":
                     String pushSegment = args[1];
                     String pushIndex = args[2];
-                    commands.add(new Commands.PushCommand(pushIndex, pushSegment));
+                    commands.add(new Commands.PushCommand(pushIndex, pushSegment, fileName));
                     break;
                 case "pop":
                     String popSegment = args[1];
                     String popIndex = args[2];
-                    commands.add(new Commands.PopCommand(popIndex, popSegment));
+                    commands.add(new Commands.PopCommand(popIndex, popSegment, fileName));
                     break;
                 case "add":
                     commands.add(new Commands.AddCommand());
