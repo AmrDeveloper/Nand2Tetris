@@ -8,12 +8,12 @@ class Circle{
     field boolean isBlack;
     field boolean beBigger;
 
-    constructor Circle new(boolean blackColor) {
+    constructor Circle new() {
        let currentX = 255;
        let currentY = 125;
        let currentR = 124;
        let maxCircleR = 124;
-       let isBlack = blackColor;
+       let isBlack = true;
        let beBigger = false;
        return this;
     }

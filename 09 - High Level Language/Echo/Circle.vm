@@ -10,7 +10,8 @@ push constant 124
 pop this 2
 push constant 124
 pop this 3
-push argument 0
+push constant 0
+not
 pop this 4
 push constant 0
 pop this 5

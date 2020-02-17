@@ -1,15 +1,7 @@
-function Main.main 2
-push constant 0
-not
-call Circle.new 1
+function Main.main 1
+call Circle.new 0
 pop local 0
-push constant 0
-call Circle.new 1
-pop local 1
 push local 0
-call Circle.run 1
-pop temp 0
-push local 1
 call Circle.run 1
 pop temp 0
 push constant 0
