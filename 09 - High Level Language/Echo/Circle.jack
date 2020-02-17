@@ -1,0 +1,44 @@
+class Circle{
+
+    field int currentX;
+    field int currentY;
+    field int currentR;
+
+    field int maxCircleR;
+    field boolean isBlack;
+    field boolean beBigger;
+
+    constructor Circle new(boolean blackColor) {
+       let currentX = 255;
+       let currentY = 125;
+       let currentR = 124;
+       let maxCircleR = 124;
+       let isBlack = blackColor;
+       let beBigger = false;
+       return this;
+    }
+
+    method void run(){
+       while(true){
+      
+        do Screen.setColor(isBlack);
+        do Screen.drawCircle(currentX, currentY, currentR);
+
+        let isBlack = ~isBlack;        
+
+        do Sys.wait(100);
+
+        if(currentR = 0){
+            let currentR = maxCircleR;
+        }
+
+        let currentR = currentR - 2;
+      } 
+      return;
+    }
+
+    method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+}

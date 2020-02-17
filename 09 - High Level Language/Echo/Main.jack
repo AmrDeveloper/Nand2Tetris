@@ -1,0 +1,13 @@
+class Main {
+   function void main() {
+        var Circle circle1;
+        var Circle circle2;
+
+        let circle1 = Circle.new(true);
+        let circle2 = Circle.new(false);
+
+        do circle1.run();
+        do circle2.run();
+        return;
+    }
+}
