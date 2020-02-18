@@ -14,11 +14,53 @@ public class TokenConst {
             '*', '/', '&', '|', '<', '>', '=', '~', ';'
     );
 
-    public static boolean isKeywordConst(String keyword){
+    public static boolean isKeywordConst(String keyword) {
         return keywords.contains(keyword);
     }
 
-    public static boolean isSymbolConst(char keyword){
+    public static boolean isSymbolConst(char keyword) {
         return symbols.contains(keyword);
+    }
+
+    public static boolean isUnaryOperator(Token token) {
+        String strToken = token.getText();
+        return strToken.equals("-") || strToken.equals("~");
+    }
+
+    public static boolean isStatement(Token token) {
+        String strToken = token.getText();
+        return strToken.equals("if") ||
+                strToken.equals("else") ||
+                strToken.equals("while") ||
+                strToken.equals("do") ||
+                strToken.equals("let") ||
+                strToken.equals("return");
+    }
+
+    public static boolean isClassSubroutine(Token token) {
+        String strToken = token.getText();
+        return strToken.equals("constructor") ||
+                strToken.equals("function") ||
+                strToken.equals("method");
+    }
+
+    public static boolean isClassField(Token token) {
+        String strToken = token.getText();
+        return strToken.equals("static") ||
+                strToken.equals("field");
+    }
+
+    public static boolean isOperator(Token token) {
+        String strToken = token.getText();
+        return strToken.equals("+") ||
+                strToken.equals("-") ||
+                strToken.equals("*") ||
+                strToken.equals("/") ||
+                strToken.equals(">") ||
+                strToken.equals("<") ||
+                strToken.equals("=") ||
+                strToken.equals("&") ||
+                strToken.equals("|") ||
+                strToken.equals("");
     }
 }
