@@ -63,4 +63,11 @@ public class TokenConst {
                 strToken.equals("|") ||
                 strToken.equals("");
     }
+
+    public static boolean isValueConstant(Token token) {
+        return token.getText().equals("true") ||
+                token.getText().equals("false") ||
+                token.getText().equals("null") ||
+                token.getText().equals("this");
+    }
 }
