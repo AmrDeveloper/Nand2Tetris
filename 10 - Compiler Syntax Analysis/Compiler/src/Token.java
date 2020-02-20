@@ -18,7 +18,7 @@ public class Token {
 
     @Override
     public String toString() {
-        if(type == TokenType.SYMBOL){
+        if(type == TokenType.symbol){
             text = text.replaceAll("&", "&amp;").
                     replaceAll("<", "&lt;").
                     replaceAll(">", "&gt;");

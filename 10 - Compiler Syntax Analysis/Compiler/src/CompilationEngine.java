@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompilationEngine {
-
     private int index;
     private List<Token> tokenList;
     private List<String> outputCode;
@@ -72,7 +71,7 @@ public class CompilationEngine {
         Token nextToken = pointNextToken();
         while(!nextToken.getText().equals(";")){
             //,
-            outputCode.add(pointNextToken().toString());
+            outputCode.add(nextToken.toString());
             //Name
             outputCode.add(pointNextToken().toString());
             nextToken = pointNextToken();
@@ -113,7 +112,7 @@ public class CompilationEngine {
             //parameter values
             compileExpressionList();
             //)
-            outputCode.add(pointPrevToken().toString());
+            outputCode.add(pointNextToken().toString());
         }else if(nextToken.getText().equals(".")){
             //.
             outputCode.add(nextToken.toString());
@@ -185,15 +184,15 @@ public class CompilationEngine {
             outputCode.add(pointNextToken().toString());
 
             token = pointNextToken();
-            while(!token.getText().equals(")")){
+            while(token.getText().equals(",")){
                 //,
                 outputCode.add(token.toString());
 
                 //Type
-                outputCode.add(pointPrevToken().toString());
+                outputCode.add(pointNextToken().toString());
 
                 //Name
-                outputCode.add(pointPrevToken().toString());
+                outputCode.add(pointNextToken().toString());
 
                 token = pointNextToken();
             }
@@ -365,10 +364,10 @@ public class CompilationEngine {
         Token nextToken = pointNextToken();
         if(TokenConst.isKeywordConst(nextToken.getText())){
             outputCode.add(nextToken.toString());
-        }else if(nextToken.getType() == TokenType.INT_CONST){
+        }else if(nextToken.getType() == TokenType.integerConstant){
             outputCode.add(nextToken.toString());
         }
-        else if(nextToken.getType() == TokenType.STRING_CONST){
+        else if(nextToken.getType() == TokenType.stringConstant){
             outputCode.add(nextToken.toString());
         }else if(TokenConst.isUnaryOperator(nextToken)){
             outputCode.add(nextToken.toString());
@@ -386,13 +385,13 @@ public class CompilationEngine {
                 //Var name
                 outputCode.add(pointPrevToken().toString());
                 //[
-                outputCode.add(nextToken.toString());
+                outputCode.add(pointNextToken().toString());
                 compileExpression();
                 //]
                 outputCode.add(pointNextToken().toString());
             }else if(nextToken.getText().equals("(") || nextToken.getText().equals(".")){
                 pointPrevToken();
-                //pointPrevToken();
+                pointPrevToken();
                 compileSubroutineCall();
             }else{
                 //Var name

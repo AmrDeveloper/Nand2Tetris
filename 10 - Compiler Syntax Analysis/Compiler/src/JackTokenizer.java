@@ -15,6 +15,8 @@ public class JackTokenizer {
         this.currentIndex = 0;
         this.startIndex = 0;
         this.source = readJackFile(input.getPath());
+        this.source = source.replaceAll("/\\*.*\\*/", " ")
+                .replaceAll("(?s)/\\*.*\\*/", " ");
     }
 
     public List<Token> tokenize() {
@@ -23,32 +25,38 @@ public class JackTokenizer {
             currentIndex = i;
             startIndex = currentIndex;
             char c = source.charAt(i);
-            if (c == ' ') {
+            if (c == ' ' || c == '\t' || c == '\n') {
                 continue;
             }
             //Handle Symbols
             else if (TokenConst.symbols.contains(c)) {
-                tokens.add(new Token(String.valueOf(c), TokenType.SYMBOL));
+                tokens.add(new Token(String.valueOf(c), TokenType.symbol));
             }
             //Handle Integer Const
             else if (isDigit(c)) {
                 String intValue = handleIntegerConst();
-                tokens.add(new Token(intValue, TokenType.INT_CONST));
+                tokens.add(new Token(intValue, TokenType.integerConstant));
                 i = i + intValue.length() - 1;
             }
             //Handle String
             else if (isDoubleQuotes(c)) {
-                String strValue = handleStringConst();
-                tokens.add(new Token(strValue, TokenType.STRING_CONST));
-                i = i + strValue.length() - 1;
+                StringBuilder strValue = new StringBuilder();
+                char newC = source.charAt(i + 1);
+                i = i + 1;
+                while (newC != '"'){
+                    strValue.append(newC);
+                    i = i + 1;
+                    newC = source.charAt(i);
+                }
+                tokens.add(new Token(strValue.toString(), TokenType.stringConstant));
             }
             //Handle IDENTIFIER or Keyword
             else if (isAlpha(c)) {
                 String alphaValue = handleAlpha();
                 if (TokenConst.keywords.contains(alphaValue)) {
-                    tokens.add(new Token(alphaValue, TokenType.KEYWORD));
+                    tokens.add(new Token(alphaValue, TokenType.keyword));
                 } else {
-                    tokens.add(new Token(alphaValue, TokenType.IDENTIFIER));
+                    tokens.add(new Token(alphaValue, TokenType.identifier));
                 }
                 i = i + alphaValue.length() - 1;
             } else {
@@ -65,7 +73,7 @@ public class JackTokenizer {
             Scanner sc = new Scanner(fis);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
-                if (line.startsWith("//") || line.isEmpty()) {
+                if (line.startsWith("//") || line.startsWith("/**") || line.startsWith("*")  || line.isEmpty()) {
                     continue;
                 } else if (line.contains("//")) {
                     String[] args = line.split("/");
@@ -91,18 +99,9 @@ public class JackTokenizer {
     }
 
     private String handleStringConst() {
-        while (getCurrentChar() != '"' && hasMoreTokens()) {
+        while (getNextChar() != '"' && hasMoreTokens()) {
             pointToNextChar();
         }
-
-        // Unterminated scanString.
-        if (!hasMoreTokens()) {
-            //Throw Error
-            return null;
-        }
-
-        // The closing ".
-        pointToNextChar();
 
         // Trim the surrounding quotes.
         return source.substring(startIndex + 1, currentIndex - 1);

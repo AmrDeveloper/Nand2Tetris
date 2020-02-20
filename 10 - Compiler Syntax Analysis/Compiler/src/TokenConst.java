@@ -10,12 +10,15 @@ public class TokenConst {
     );
 
     public static final List<Character> symbols = Arrays.asList(
-            '{', '}', '(', ')', '{', '}', '.', ',', '+', '-',
+            '[', ']', '(', ')', '{', '}', '.', ',', '+', '-',
             '*', '/', '&', '|', '<', '>', '=', '~', ';'
     );
 
     public static boolean isKeywordConst(String keyword) {
-        return keywords.contains(keyword);
+        return keyword.equals("true") ||
+                keyword.equals("false") ||
+                keyword.equals("null") ||
+                keyword.equals("this");
     }
 
     public static boolean isSymbolConst(char keyword) {
@@ -64,10 +67,4 @@ public class TokenConst {
                 strToken.equals("");
     }
 
-    public static boolean isValueConstant(Token token) {
-        return token.getText().equals("true") ||
-                token.getText().equals("false") ||
-                token.getText().equals("null") ||
-                token.getText().equals("this");
-    }
 }
