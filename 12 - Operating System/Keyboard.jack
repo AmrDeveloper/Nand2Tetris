@@ -13,6 +13,7 @@ class Keyboard {
     /** Initializes the keyboard. */
     function void init() {
         let keyboard = 24576;
+        return;
     } 
 
     /**
