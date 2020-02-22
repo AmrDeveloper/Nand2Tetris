@@ -46,10 +46,9 @@ class Keyboard {
      */
     function char readChar() {
         var char character;
+        while(Keyboard.keyPressed() = 0){}
         let character = Keyboard.keyPressed();
-        while(character = 0){}
-        let character = Keyboard.keyPressed();
-        while(~(character = 0)){}
+        while(~(Keyboard.keyPressed() = 0)){}
         do Output.printChar(key);
         return character;
     }
