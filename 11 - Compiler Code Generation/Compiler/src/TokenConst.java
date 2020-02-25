@@ -66,4 +66,10 @@ public class TokenConst {
                 strToken.equals("|");
     }
 
+    public static boolean isBuiltInType(String type){
+        return type.equals("int") ||
+                type.equals("void") ||
+                type.equals("boolean") ||
+                type.equals("char");
+    }
 }

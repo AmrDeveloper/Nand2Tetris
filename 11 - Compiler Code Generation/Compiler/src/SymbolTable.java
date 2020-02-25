@@ -62,6 +62,9 @@ public class SymbolTable {
         Symbol symbol = subroutineLevelTable.get(name);
         if(symbol == null){
             symbol = classLevelTable.get(name);
+            if(symbol == null){
+                return "";
+            }
         }
         return symbol.getType();
     }

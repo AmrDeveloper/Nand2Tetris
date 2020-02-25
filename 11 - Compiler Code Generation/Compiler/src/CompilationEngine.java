@@ -103,7 +103,6 @@ public class CompilationEngine {
         //Subroutine caller name
         String callerName = pointNextToken().toString();
 
-
         Token nextToken = pointNextToken();
         if(nextToken.getText().equals("(")){
             vmWriter.writePush(Segment.POINTER,0);
@@ -113,10 +112,14 @@ public class CompilationEngine {
             vmWriter.writeCall(classScope + "." + callerName, nArgs);
             //)
             pointNextToken();
-        }else if(nextToken.getText().equals(".")){
+        }
+        else if(nextToken.getText().equals(".")){
             //.
             //name
             String callerSubName = callerName + "." + pointNextToken().toString();
+
+            String callerType = symbolTable.typeOf(callerName);
+
             //(
             pointNextToken();
             
@@ -387,7 +390,7 @@ public class CompilationEngine {
         if(!nextToken.getText().equals(";")){
             pointPrevToken();
             compileExpression();
-            nextToken = pointNextToken();
+            pointNextToken();
         }else{
             //for void subroutine
             vmWriter.writePush(Segment.CONST, 0);
@@ -448,7 +451,7 @@ public class CompilationEngine {
                 vmWriter.writePush(getKindSegment(symbolTable.kindOf(varName)), symbolTable.indexOf(varName));
                 //[
                 pointNextToken();
-                
+
                 compileExpression();
 
                 //]
