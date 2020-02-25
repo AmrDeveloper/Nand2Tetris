@@ -8,33 +8,33 @@
  */
 class Math {
     
-    static Array twoPowerI;
+    static Array bitArray;
 
     /** Initializes the library. */
     function void init() {
-        let twoPowerI = Array.new(16);
-        let twoPowerI[0] = 1;
-        let twoPowerI[1] = 2;
-        let twoPowerI[2] = 4;
-        let twoPowerI[3] = 8;
-        let twoPowerI[4] = 16;
-        let twoPowerI[5] = 32;
-        let twoPowerI[6] = 64;
-        let twoPowerI[7] = 128;
-        let twoPowerI[8] = 256;
-        let twoPowerI[9] = 512;
-        let twoPowerI[10] = 1024;
-        let twoPowerI[11] = 2048;
-        let twoPowerI[12] = 4096;
-        let twoPowerI[13] = 8192;
-        let twoPowerI[14] = 16384;
-        let twoPowerI[15] = 16384 + 16384;
+        let bitArray = Array.new(16);
+        let bitArray[0] = 1;
+        let bitArray[1] = 2;
+        let bitArray[2] = 4;
+        let bitArray[3] = 8;
+        let bitArray[4] = 16;
+        let bitArray[5] = 32;
+        let bitArray[6] = 64;
+        let bitArray[7] = 128;
+        let bitArray[8] = 256;
+        let bitArray[9] = 512;
+        let bitArray[10] = 1024;
+        let bitArray[11] = 2048;
+        let bitArray[12] = 4096;
+        let bitArray[13] = 8192;
+        let bitArray[14] = 16384;
+        let bitArray[15] = 16384 + 16384;
         return;
     }
 
     /** Returns if jth bit of x is 1 */
     function boolean bit(int x, int j){
-        return ~((x & twoPowerI[j]) = 0);
+        return ~((x & bitArray[j]) = 0);
     }
 
     /** Returns the absolute value of x. */
@@ -102,7 +102,7 @@ class Math {
         let j = 7;
 
         while(~(j < 0)){
-            let temp = y + twoPowerI[j];
+            let temp = y + bitArray[j];
             let tempQ = temp * temp;
             //avoid overflow
             if(~(tempQ > x) & (tempQ > 0)){
@@ -130,13 +130,8 @@ class Math {
         return b;
     }
 
-    /** helper function: mod/
-    function int mod(int a, int b){
-        return x - (Math.divid(a,b) * b);
-    }
-
     /** helper function two to the*/
     function int twoPowerOfI(int i){
-        return twoPowerI[i];
+        return bitArray[i];
     }
 }
