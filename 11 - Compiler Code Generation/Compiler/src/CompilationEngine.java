@@ -1,6 +1,4 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompilationEngine {
@@ -391,6 +389,7 @@ public class CompilationEngine {
             compileExpression();
             nextToken = pointNextToken();
         }else{
+            //for void subroutine
             vmWriter.writePush(Segment.CONST, 0);
         }
         vmWriter.writeReturn();
@@ -449,7 +448,9 @@ public class CompilationEngine {
                 vmWriter.writePush(getKindSegment(symbolTable.kindOf(varName)), symbolTable.indexOf(varName));
                 //[
                 pointNextToken();
+                
                 compileExpression();
+
                 //]
                 pointNextToken();
 
@@ -462,8 +463,7 @@ public class CompilationEngine {
                 compileSubroutineCall();
             }else{
                 //Var name
-                pointPrevToken();
-                String varName = getCurrentToken().toString();
+                String varName = pointPrevToken().toString();
                 vmWriter.writePush(getKindSegment(symbolTable.kindOf(varName)), symbolTable.indexOf(varName));
             }
         }
@@ -499,7 +499,7 @@ public class CompilationEngine {
             compileExpression();
             nextToken = pointNextToken();
             while (nextToken.getText().equals(",")){
-                //,
+                //current token is ,
                 compileExpression();
                 nextToken = pointNextToken();
                 expressionCount = expressionCount + 1;
